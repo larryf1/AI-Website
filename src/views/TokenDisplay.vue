@@ -49,7 +49,7 @@ import { useAuth0 } from '@auth0/auth0-vue';
 export default {
   name: 'TokenDisplayView',
   setup() {
-    const { getAccessTokenSilently, isLoading: authIsLoading, error: authError, isAuthenticated } = useAuth0();
+    const { getAccessTokenSilently, isLoading: authIsLoading, isAuthenticated } = useAuth0();
     const accessToken = ref(null);
     const isLoading = ref(false); // Separate loading state for token fetching
     const error = ref(null); // Separate error state for token fetching

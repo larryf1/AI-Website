@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '../views/HomeView.vue';
 import ProfileView from '../views/ProfileView.vue';
-import TokenDisplayView from '../views/TokenDisplayView.vue';
+import TokenDisplayView from '../views/TokenDisplay.vue'; // Corrected path
 import { authGuard } from '@auth0/auth0-vue'; // Import authGuard
 
 const routes = [
