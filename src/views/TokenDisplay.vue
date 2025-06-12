@@ -1,42 +1,45 @@
 <template>
-  <div class="token-display p-4">
-    <h1 class="text-2xl font-semibold mb-4">Access Token (Auth0)</h1>
-    <p class="mb-3 text-sm text-gray-600">
-      This page attempts to retrieve an access token from Auth0.
+  <div class="token-display max-w-2xl mx-auto bg-white rounded-xl shadow-lg p-8 mt-8">
+    <h1 class="text-3xl font-bold text-primary mb-4">Access Token (Auth0)</h1>
+    <p class="mb-3 text-base text-secondary">
+      This page attempts to retrieve an access token from Auth0.<br>
       For this token to be a JWT suitable for calling your own APIs,
       ensure you have configured an 'audience' in the Auth0 plugin initialization
-      (in `src/main.js`) and that your Auth0 application is set up for API authorization.
+      (in <code>src/main.js</code>) and that your Auth0 application is set up for API authorization.
     </p>
-    <div v-if="isLoading" class="text-gray-500">Loading token...</div>
-    <div v-if="error" class="text-red-500 bg-red-100 p-3 rounded mb-4">
+    <div v-if="isLoading" class="flex items-center text-secondary">
+      <svg class="animate-spin h-5 w-5 mr-2 text-primary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path></svg>
+      Loading token...
+    </div>
+    <div v-if="error" class="text-red-600 bg-red-100 p-4 rounded mb-4 border border-red-200">
       <p class="font-semibold">Error acquiring token:</p>
       <pre class="whitespace-pre-wrap text-sm">{{ error.message || error }}</pre>
       <p v-if="error.error === 'consent_required' || error.error === 'login_required'" class="mt-2 text-sm">
-        This error might mean you need to grant consent or log in again.
+        This error might mean you need to grant consent or log in again.<br>
         You might also need to configure an API in your Auth0 dashboard and request an audience.
       </p>
     </div>
-    <div v-if="accessToken" class="bg-gray-100 p-3 rounded">
+    <div v-if="accessToken" class="bg-gray-50 p-4 rounded border border-gray-200">
       <p class="font-semibold mb-2">Your Auth0 Access Token:</p>
       <textarea
           readonly
-          class="w-full h-64 p-2 border rounded text-xs bg-gray-50"
+          class="w-full h-64 p-2 border rounded text-xs bg-gray-100 font-mono focus:outline-none focus:ring-2 focus:ring-primary"
           :value="accessToken"
           ref="tokenTextarea"
       ></textarea>
       <button
           @click="copyToken"
-          class="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300"
+          class="mt-2 px-4 py-2 bg-primary text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300 transition"
       >
         Copy Token
       </button>
       <p v-if="copySuccess" class="text-green-600 mt-1">Token copied to clipboard!</p>
     </div>
-    <p v-if="!isLoading && !accessToken && !error && isAuthenticated" class="text-gray-500">
-      Could not acquire token. You are logged in, but token retrieval failed.
+    <p v-if="!isLoading && !accessToken && !error && isAuthenticated" class="text-secondary mt-4">
+      Could not acquire token. You are logged in, but token retrieval failed.<br>
       Check console and Auth0 logs. Ensure 'audience' is configured if needed.
     </p>
-    <p v-if="!isAuthenticated && !isLoading" class="text-red-500">
+    <p v-if="!isAuthenticated && !isLoading" class="text-red-500 mt-4">
       You are not authenticated. Please log in to view a token.
     </p>
   </div>

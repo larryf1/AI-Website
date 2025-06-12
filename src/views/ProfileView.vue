@@ -1,16 +1,15 @@
 <template>
-  <div class="profile">
-    <h1>My Profile</h1>
+  <div class="profile max-w-xl mx-auto bg-white rounded-xl shadow-lg p-8 mt-8">
+    <h1 class="text-3xl font-bold text-primary mb-4">My Profile</h1>
     <div v-if="isAuthenticated && user">
-      <p>Hello, {{ user.name || user.email }}!</p>
-      <p>This is your profile page.</p>
-      <!-- You can display more user info here, e.g.: -->
-      <!-- <pre>{{ user }}</pre> -->
+      <p class="text-lg mb-2">Hello, <span class="font-semibold">{{ user.name || user.email }}</span>!</p>
+      <p class="text-gray-600 mb-4">This is your profile page.</p>
+      <!-- <pre class="bg-gray-100 p-2 rounded text-xs overflow-x-auto">{{ user }}</pre> -->
     </div>
     <div v-else>
-      <p>You must be logged in to view your profile.</p>
+      <p class="text-red-500">You must be logged in to view your profile.</p>
     </div>
-    <p>This page should only be accessible after logging in.</p> <!-- This line is a bit redundant with the check above but can be kept or removed -->
+    <p class="text-xs text-gray-400 mt-6">This page should only be accessible after logging in.</p>
   </div>
 </template>
 
