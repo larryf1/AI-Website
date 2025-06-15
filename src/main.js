@@ -16,7 +16,9 @@ app.use(
         domain: process.env.VUE_APP_AUTH0_DOMAIN,
         clientId: process.env.VUE_APP_AUTH0_CLIENT_ID,
         authorizationParams: {
-            redirect_uri: window.location.origin
+            redirect_uri: window.location.origin,
+            audience: `https://${process.env.VUE_APP_AUTH0_DOMAIN}/api/v2/`,
+            scope: 'openid profile email'
         },
     })
 );
